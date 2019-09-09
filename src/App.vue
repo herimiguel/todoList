@@ -17,37 +17,28 @@ export default {
     Header,
     Todos,
     AddTodo
-
-
   },
+
   data(){
     return {
-    todos: [
-      {
-        id: 1,
-        title: "todo one",
-        completed: false
-      },
-      {
-        id: 2,
-        title: "todo two",
-        completed: false
-      },
-      {
-        id: 3,
-        title: "todo three",
-        completed: false
-      },
-    ]
+    todos: [],
     }
   },
   methods: {
     deleteTodo(id){
       this.todos = this.todos.filter(todo => todo.id !== id);
+      localStorage.setItem('todos', JSON.stringify(this.todos));
+
     },
     addTodo(newTodo){
-      this.todos = [...this.todos, newTodo]
-    }
+      this.todos = [...this.todos, newTodo];
+      localStorage.setItem('todos', JSON.stringify(this.todos));
+      console.log(localStorage);
+    },
+  },
+  created(){
+    if (localStorage.getItem('todos'))
+     this.todos = JSON.parse(localStorage.getItem('todos'));
   }
 }
 </script>
